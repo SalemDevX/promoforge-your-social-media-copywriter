@@ -16,7 +16,7 @@ const HeroSection = () => {
         </p>
         <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
           <Zap className="h-4 w-4 text-primary" />
-          Used by 2,000+ small businesses
+          Built for small businesses & side hustlers
         </div>
       </div>
     </section>
