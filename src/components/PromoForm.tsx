@@ -6,8 +6,17 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Wand2, RotateCcw } from "lucide-react";
 
+export type BusinessType =
+  | "fashion"
+  | "beauty"
+  | "food"
+  | "digital"
+  | "services"
+  | "realestate"
+  | "general";
+
 export interface PromoFormData {
-  businessType: string;
+  businessType: BusinessType;
   productName: string;
   price: string;
   keyFeatures: string;
@@ -17,7 +26,7 @@ export interface PromoFormData {
 }
 
 const emptyForm: PromoFormData = {
-  businessType: "",
+  businessType: "" as BusinessType,
   productName: "",
   price: "",
   keyFeatures: "",
@@ -31,6 +40,16 @@ interface PromoFormProps {
   onClear: () => void;
   isGenerated: boolean;
 }
+
+const businessTypes: { value: BusinessType; label: string }[] = [
+  { value: "fashion", label: "👗 Fashion / Clothing" },
+  { value: "beauty", label: "💇 Hair / Beauty" },
+  { value: "food", label: "🍽️ Food / Restaurant" },
+  { value: "digital", label: "💻 Digital Products" },
+  { value: "services", label: "🔧 Services" },
+  { value: "realestate", label: "🏠 Real Estate" },
+  { value: "general", label: "📦 General" },
+];
 
 const PromoForm = ({ onGenerate, onClear, isGenerated }: PromoFormProps) => {
   const [form, setForm] = useState<PromoFormData>(emptyForm);
@@ -53,17 +72,23 @@ const PromoForm = ({ onGenerate, onClear, isGenerated }: PromoFormProps) => {
   return (
     <form onSubmit={handleSubmit} className="space-y-4 px-4">
       <div className="space-y-2">
-        <Label htmlFor="businessType">Business Type</Label>
-        <Input
-          id="businessType"
-          placeholder="e.g. Bakery, Hair Salon, Tech Store"
-          value={form.businessType}
-          onChange={(e) => update("businessType", e.target.value)}
-        />
+        <Label>Business Type <span className="text-destructive">*</span></Label>
+        <Select value={form.businessType} onValueChange={(v) => update("businessType", v)}>
+          <SelectTrigger>
+            <SelectValue placeholder="Select your business type" />
+          </SelectTrigger>
+          <SelectContent>
+            {businessTypes.map((bt) => (
+              <SelectItem key={bt.value} value={bt.value}>
+                {bt.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="productName">Product / Service Name</Label>
+        <Label htmlFor="productName">Product / Service Name <span className="text-destructive">*</span></Label>
         <Input
           id="productName"
           placeholder="e.g. Birthday Cakes, Hair Braiding"
@@ -130,26 +155,14 @@ const PromoForm = ({ onGenerate, onClear, isGenerated }: PromoFormProps) => {
         />
       </div>
 
-      {/* Sticky bottom bar on mobile */}
       <div className="sticky bottom-0 z-10 -mx-4 border-t border-border bg-background/95 px-4 py-3 backdrop-blur-sm md:static md:mx-0 md:border-0 md:bg-transparent md:px-0 md:py-0 md:backdrop-blur-none">
         <div className="flex gap-3">
-          <Button
-            type="submit"
-            variant="hero"
-            size="xl"
-            className="flex-1"
-            disabled={!isValid}
-          >
+          <Button type="submit" variant="hero" size="xl" className="flex-1" disabled={!isValid}>
             <Wand2 className="h-5 w-5" />
             {isGenerated ? "Regenerate" : "Generate Promo"}
           </Button>
           {isGenerated && (
-            <Button
-              type="button"
-              variant="outline"
-              size="xl"
-              onClick={handleClear}
-            >
+            <Button type="button" variant="outline" size="xl" onClick={handleClear}>
               <RotateCcw className="h-5 w-5" />
             </Button>
           )}
