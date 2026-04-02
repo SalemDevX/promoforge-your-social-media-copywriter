@@ -8,41 +8,50 @@ interface PromoResultsProps {
 }
 
 /* ── Business-type vocabulary ── */
-const bizVocab: Record<BusinessType, { words: string[]; emoji: string; urgency: string }> = {
+const bizVocab: Record<BusinessType, {
+  hooks: string[]; benefits: string[]; emoji: string; urgency: string[];
+}> = {
   fashion: {
-    words: ["elevate your style", "turn heads everywhere you go", "express your confidence"],
-    emoji: "👗👠✨",
-    urgency: "🔥 Styles are selling out fast — don't miss your size!",
+    hooks: ["Your next obsession just dropped", "This is the look everyone's asking about", "Stop scrolling — you need to see this"],
+    benefits: ["Feel unstoppable every time you step out", "Pieces that actually get you compliments", "Designed for people who don't follow trends — they set them"],
+    emoji: "👗✨🔥",
+    urgency: ["Sizes are disappearing — grab yours before they're gone", "This drop won't be restocked", "Last chance to snag this before it sells out"],
   },
   beauty: {
-    words: ["unlock your glow-up", "transform your look", "treat yourself to the self-care you deserve"],
-    emoji: "💅💇‍♀️✨",
-    urgency: "⏳ Limited appointment slots available this week!",
+    hooks: ["Your glow-up starts right here", "This is the secret your skin's been waiting for", "Warning: you might not recognize yourself after this"],
+    benefits: ["Walk out feeling like the best version of you", "Self-care that actually delivers results", "Because you deserve to look in the mirror and smile"],
+    emoji: "💅✨💇‍♀️",
+    urgency: ["Appointments are filling up — don't wait", "Only a few slots left this week", "Book now or miss out until next month"],
   },
   food: {
-    words: ["satisfy your cravings", "taste the freshness in every bite", "indulge in flavors you'll love"],
-    emoji: "🍽️🔥😋",
-    urgency: "🕐 Order before we sell out today!",
+    hooks: ["Your taste buds called — they want this", "One bite and you'll be hooked", "This is the meal you've been craving all week"],
+    benefits: ["Made fresh, made right, made for you", "Real ingredients, real flavor, zero compromise", "The kind of food that makes you close your eyes and go 'mmm'"],
+    emoji: "🍽️😋🔥",
+    urgency: ["We sell out every day — order early", "Today's batch is almost gone", "Limited servings available — first come, first served"],
   },
   digital: {
-    words: ["get instant results", "unlock powerful value from day one", "work smarter, not harder"],
-    emoji: "💻📈🚀",
-    urgency: "⚡ Launch offer — price goes up soon!",
+    hooks: ["This is the shortcut you didn't know you needed", "Stop wasting time — there's a better way", "What if you could get twice the results in half the time?"],
+    benefits: ["Built to save you hours and make you money", "No fluff, no filler — just results", "The tool smart business owners are switching to"],
+    emoji: "💻🚀📈",
+    urgency: ["Launch pricing ends soon — lock it in now", "This deal disappears at midnight", "Early adopters get the best price — don't sleep on it"],
   },
   services: {
-    words: ["experience trusted expertise", "let the professionals handle it", "reliability you can count on"],
-    emoji: "🛠️⭐🤝",
-    urgency: "📅 Book now — spots are filling up fast!",
+    hooks: ["Finally, someone who actually gets the job done right", "Tired of unreliable service? We hear you", "This is what stress-free looks like"],
+    benefits: ["We show up on time, deliver on promises, and earn your trust", "Hundreds of happy clients can't be wrong", "Professional results without the runaround"],
+    emoji: "⭐🤝🛠️",
+    urgency: ["Our schedule fills up fast — book your spot", "We only take on a limited number of clients each month", "Secure your booking before the week fills up"],
   },
   realestate: {
-    words: ["invest in your dream space", "find comfort in the perfect location", "secure your future today"],
+    hooks: ["Picture yourself waking up here every morning", "This isn't just a property — it's your next chapter", "Homes like this don't stay on the market long"],
+    benefits: ["The location, the space, the lifestyle — it all clicks", "An investment that pays you back in comfort and value", "Where your family's best memories are waiting to happen"],
     emoji: "🏠🔑🌇",
-    urgency: "🏷️ This property won't last — schedule a viewing now!",
+    urgency: ["Viewings are booking up — schedule yours today", "At this price, it won't last the weekend", "Serious buyers are already circling — don't miss your window"],
   },
   general: {
-    words: ["discover something amazing", "get exactly what you need", "quality you can trust"],
+    hooks: ["You're going to want to hear about this", "Here's something that actually lives up to the hype", "We made this with people like you in mind"],
+    benefits: ["Quality that speaks for itself", "Built to solve a real problem, not just look good", "The kind of value that keeps customers coming back"],
     emoji: "⭐🎯🔥",
-    urgency: "⏳ Limited stock available — act now!",
+    urgency: ["Stock is limited — once it's gone, it's gone", "This offer expires soon", "Don't wait — the best deals go first"],
   },
 };
 
@@ -50,18 +59,22 @@ const bizVocab: Record<BusinessType, { words: string[]; emoji: string; urgency: 
 function toneAdjust(tone: string) {
   switch (tone) {
     case "casual":
-      return { opener: "Yo, check this out!", closer: "Hit us up! 🤙", style: "relaxed" };
+      return { opener: "Yo, real talk —", closer: "Slide into our DMs, we got you 🤙", style: "relaxed" };
     case "professional":
-      return { opener: "We're pleased to present", closer: "Get in touch today.", style: "formal" };
+      return { opener: "We're excited to share something special.", closer: "We'd love to connect — reach out anytime.", style: "formal" };
     case "luxury":
-      return { opener: "Introducing an exclusive offering", closer: "Experience the difference.", style: "elegant" };
+      return { opener: "For those who appreciate the finer things.", closer: "Elevate your experience — you deserve nothing less.", style: "elegant" };
     case "urgent":
-      return { opener: "🚨 DON'T MISS THIS!", closer: "Act NOW before it's gone! 🔥", style: "urgent" };
+      return { opener: "🚨 This won't last — read this NOW.", closer: "Seriously, don't sleep on this. Act today! 🔥", style: "urgent" };
     case "excited":
-      return { opener: "🎉 BIG NEWS!", closer: "Let's gooo! 🚀", style: "hype" };
+      return { opener: "🎉 OK we literally can't contain our excitement!", closer: "Let's make it happen — we're SO ready! 🚀", style: "hype" };
     default:
-      return { opener: "Hey there! 👋", closer: "We'd love to hear from you! 😊", style: "warm" };
+      return { opener: "Hey! We've got something you'll love 👋", closer: "We're here whenever you're ready — let's chat! 😊", style: "warm" };
   }
+}
+
+function pick<T>(arr: T[]): T {
+  return arr[Math.floor(Math.random() * arr.length)];
 }
 
 function generatePromos(d: PromoFormData) {
@@ -69,26 +82,27 @@ function generatePromos(d: PromoFormData) {
   const biz = d.businessType || "general";
   const price = d.price ? ` for just ${d.price}` : "";
   const features = d.keyFeatures || "premium quality";
-  const audience = d.targetAudience || "you";
-  const cta = d.cta || "Contact us today";
-  const vocab = bizVocab[biz as BusinessType] || bizVocab.general;
+  const audience = d.targetAudience || "people who know what they want";
+  const cta = d.cta || "Reach out today";
+  const v = bizVocab[biz as BusinessType] || bizVocab.general;
   const tone = toneAdjust(d.tone);
 
   /* ── WhatsApp ── */
   const whatsapp = [
-    `${tone.opener}`,
+    tone.opener,
     "",
-    `*${name}* is here! ${vocab.emoji}`,
+    `${pick(v.hooks)}. ${v.emoji}`,
     "",
-    `${vocab.words[0].charAt(0).toUpperCase() + vocab.words[0].slice(1)} with *${name}*.`,
+    `Meet *${name}* — ${pick(v.benefits).toLowerCase()}.`,
     "",
+    `Here's what makes it special:`,
     `✅ ${features}`,
-    price ? `💰 Yours${price}` : "",
+    price ? `💰 All yours${price}` : "",
     `🎯 Perfect for ${audience.toLowerCase()}`,
     "",
-    vocab.urgency,
+    `⏳ ${pick(v.urgency)}`,
     "",
-    `👉 *${cta}*`,
+    `👉 *${cta}* — we're ready when you are!`,
     "",
     tone.closer,
   ]
@@ -105,15 +119,16 @@ function generatePromos(d: PromoFormData) {
   ].join(" ");
 
   const instagram = [
-    `${vocab.words[1].charAt(0).toUpperCase() + vocab.words[1].slice(1)}. ✨`,
+    `${pick(v.hooks)}. ✨`,
     "",
-    `Introducing *${name}* — ${vocab.words[2]}.`,
+    `Say hello to *${name}* — and say goodbye to settling for less.`,
     "",
+    `Why people love it:`,
     `🔹 ${features}`,
     price ? `💸 Starting${price}` : "",
-    `👤 Made for ${audience.toLowerCase()}`,
+    `👤 Built for ${audience.toLowerCase()}`,
     "",
-    vocab.urgency,
+    `${pick(v.urgency)} 👀`,
     "",
     `${cta} 👇`,
     "🔗 Link in bio",
@@ -124,26 +139,21 @@ function generatePromos(d: PromoFormData) {
     .join("\n");
 
   /* ── Short Ad Copy ── */
-  const adCopy = [
-    `${vocab.words[0].charAt(0).toUpperCase() + vocab.words[0].slice(1)}!`,
-    `${name}${price} — ${features}.`,
-    vocab.urgency,
-    `${cta}! 🚀`,
-  ].join(" ");
+  const adCopy = `${pick(v.hooks)}. ${name}${price} — ${features}. ${pick(v.urgency)}. ${cta}! 🚀`;
 
   /* ── Premium ── */
   const premium = [
     `— *${name}* —`,
     "",
-    `Where excellence meets ${biz === "realestate" ? "real estate" : biz}.`,
+    `${pick(v.hooks)}.`,
     "",
-    `${vocab.words[2].charAt(0).toUpperCase() + vocab.words[2].slice(1)}.`,
+    `${pick(v.benefits)}.`,
     "",
     `▸ ${features}`,
-    price ? `▸ Investment:${price}` : "▸ Reach out for exclusive pricing",
+    price ? `▸ Investment:${price}` : "▸ Inquire for exclusive pricing",
     `▸ Curated for ${audience.toLowerCase()}`,
     "",
-    vocab.urgency,
+    `${pick(v.urgency)}.`,
     "",
     `${cta}.`,
     "",
