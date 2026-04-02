@@ -73,31 +73,36 @@ function toneAdjust(tone: string) {
   }
 }
 
+function pick<T>(arr: T[]): T {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
 function generatePromos(d: PromoFormData) {
   const name = d.productName || "our product";
   const biz = d.businessType || "general";
   const price = d.price ? ` for just ${d.price}` : "";
   const features = d.keyFeatures || "premium quality";
-  const audience = d.targetAudience || "you";
-  const cta = d.cta || "Contact us today";
-  const vocab = bizVocab[biz as BusinessType] || bizVocab.general;
+  const audience = d.targetAudience || "people who know what they want";
+  const cta = d.cta || "Reach out today";
+  const v = bizVocab[biz as BusinessType] || bizVocab.general;
   const tone = toneAdjust(d.tone);
 
   /* ── WhatsApp ── */
   const whatsapp = [
-    `${tone.opener}`,
+    tone.opener,
     "",
-    `*${name}* is here! ${vocab.emoji}`,
+    `${pick(v.hooks)}. ${v.emoji}`,
     "",
-    `${vocab.words[0].charAt(0).toUpperCase() + vocab.words[0].slice(1)} with *${name}*.`,
+    `Meet *${name}* — ${pick(v.benefits).toLowerCase()}.`,
     "",
+    `Here's what makes it special:`,
     `✅ ${features}`,
-    price ? `💰 Yours${price}` : "",
+    price ? `💰 All yours${price}` : "",
     `🎯 Perfect for ${audience.toLowerCase()}`,
     "",
-    vocab.urgency,
+    `⏳ ${pick(v.urgency)}`,
     "",
-    `👉 *${cta}*`,
+    `👉 *${cta}* — we're ready when you are!`,
     "",
     tone.closer,
   ]
@@ -114,15 +119,16 @@ function generatePromos(d: PromoFormData) {
   ].join(" ");
 
   const instagram = [
-    `${vocab.words[1].charAt(0).toUpperCase() + vocab.words[1].slice(1)}. ✨`,
+    `${pick(v.hooks)}. ✨`,
     "",
-    `Introducing *${name}* — ${vocab.words[2]}.`,
+    `Say hello to *${name}* — and say goodbye to settling for less.`,
     "",
+    `Why people love it:`,
     `🔹 ${features}`,
     price ? `💸 Starting${price}` : "",
-    `👤 Made for ${audience.toLowerCase()}`,
+    `👤 Built for ${audience.toLowerCase()}`,
     "",
-    vocab.urgency,
+    `${pick(v.urgency)} 👀`,
     "",
     `${cta} 👇`,
     "🔗 Link in bio",
@@ -133,26 +139,21 @@ function generatePromos(d: PromoFormData) {
     .join("\n");
 
   /* ── Short Ad Copy ── */
-  const adCopy = [
-    `${vocab.words[0].charAt(0).toUpperCase() + vocab.words[0].slice(1)}!`,
-    `${name}${price} — ${features}.`,
-    vocab.urgency,
-    `${cta}! 🚀`,
-  ].join(" ");
+  const adCopy = `${pick(v.hooks)}. ${name}${price} — ${features}. ${pick(v.urgency)}. ${cta}! 🚀`;
 
   /* ── Premium ── */
   const premium = [
     `— *${name}* —`,
     "",
-    `Where excellence meets ${biz === "realestate" ? "real estate" : biz}.`,
+    `${pick(v.hooks)}.`,
     "",
-    `${vocab.words[2].charAt(0).toUpperCase() + vocab.words[2].slice(1)}.`,
+    `${pick(v.benefits)}.`,
     "",
     `▸ ${features}`,
-    price ? `▸ Investment:${price}` : "▸ Reach out for exclusive pricing",
+    price ? `▸ Investment:${price}` : "▸ Inquire for exclusive pricing",
     `▸ Curated for ${audience.toLowerCase()}`,
     "",
-    vocab.urgency,
+    `${pick(v.urgency)}.`,
     "",
     `${cta}.`,
     "",
