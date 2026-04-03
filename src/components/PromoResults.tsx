@@ -59,17 +59,17 @@ const bizVocab: Record<BusinessType, {
 function toneAdjust(tone: string) {
   switch (tone) {
     case "casual":
-      return { opener: "Yo, real talk —", closer: "Slide into our DMs, we got you 🤙", style: "relaxed" };
+      return { opener: "Hey, quick one for you —", closer: "Hit us up anytime, we're always around 🤙", style: "relaxed" };
     case "professional":
-      return { opener: "We're excited to share something special.", closer: "We'd love to connect — reach out anytime.", style: "formal" };
+      return { opener: "We wanted to share something we've been working on.", closer: "We'd genuinely love to hear from you — feel free to reach out.", style: "formal" };
     case "luxury":
-      return { opener: "For those who appreciate the finer things.", closer: "Elevate your experience — you deserve nothing less.", style: "elegant" };
+      return { opener: "For those with discerning taste.", closer: "This is the standard you've been looking for.", style: "elegant" };
     case "urgent":
-      return { opener: "🚨 This won't last — read this NOW.", closer: "Seriously, don't sleep on this. Act today! 🔥", style: "urgent" };
+      return { opener: "⏰ Heads up — this is time-sensitive.", closer: "If you've been thinking about it, now's the moment. 🔥", style: "urgent" };
     case "excited":
-      return { opener: "🎉 OK we literally can't contain our excitement!", closer: "Let's make it happen — we're SO ready! 🚀", style: "hype" };
+      return { opener: "OK we are SO excited to finally share this! 🎉", closer: "We can't wait for you to try it — let's go! 🚀", style: "hype" };
     default:
-      return { opener: "Hey! We've got something you'll love 👋", closer: "We're here whenever you're ready — let's chat! 😊", style: "warm" };
+      return { opener: "Hey there 👋 We've got something worth your attention.", closer: "Whenever you're ready, we're here 😊", style: "warm" };
   }
 }
 
