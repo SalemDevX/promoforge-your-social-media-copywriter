@@ -80,29 +80,35 @@ function pick<T>(arr: T[]): T {
 function generatePromos(d: PromoFormData) {
   const name = d.productName || "our product";
   const biz = d.businessType || "general";
-  const price = d.price ? ` for just ${d.price}` : "";
+  const price = d.price ? d.price : "";
   const features = d.keyFeatures || "premium quality";
-  const audience = d.targetAudience || "people who know what they want";
+  const audience = d.targetAudience || "";
   const cta = d.cta || "Reach out today";
   const v = bizVocab[biz as BusinessType] || bizVocab.general;
   const tone = toneAdjust(d.tone);
+
+  const audienceLine = audience
+    ? `Made for ${audience.toLowerCase()} who know what they want`
+    : "";
+  const priceLine = price ? `All of this for ${price} — honestly a steal` : "";
+  const priceShort = price ? ` — ${price}` : "";
 
   /* ── WhatsApp ── */
   const whatsapp = [
     tone.opener,
     "",
-    `${pick(v.hooks)}. ${v.emoji}`,
+    `${pick(v.hooks)} ${v.emoji}`,
     "",
-    `Meet *${name}* — ${pick(v.benefits).toLowerCase()}.`,
+    `Introducing *${name}* — and honestly, we're a little obsessed.`,
     "",
-    `Here's what makes it special:`,
+    `Here's what makes it worth your time:`,
     `✅ ${features}`,
-    price ? `💰 All yours${price}` : "",
-    `🎯 Perfect for ${audience.toLowerCase()}`,
+    priceLine ? `💰 ${priceLine}` : "",
+    audienceLine ? `🎯 ${audienceLine}` : "",
     "",
     `⏳ ${pick(v.urgency)}`,
     "",
-    `👉 *${cta}* — we're ready when you are!`,
+    `👉 *${cta}* — we'd love to help you out!`,
     "",
     tone.closer,
   ]
@@ -119,14 +125,14 @@ function generatePromos(d: PromoFormData) {
   ].join(" ");
 
   const instagram = [
-    `${pick(v.hooks)}. ✨`,
+    `${pick(v.hooks)} ✨`,
     "",
-    `Say hello to *${name}* — and say goodbye to settling for less.`,
+    `Meet *${name}*. We poured everything into this one.`,
     "",
-    `Why people love it:`,
+    `What makes it special:`,
     `🔹 ${features}`,
-    price ? `💸 Starting${price}` : "",
-    `👤 Built for ${audience.toLowerCase()}`,
+    priceLine ? `💸 ${priceLine}` : "",
+    audienceLine ? `👤 ${audienceLine}` : "",
     "",
     `${pick(v.urgency)} 👀`,
     "",
@@ -139,7 +145,7 @@ function generatePromos(d: PromoFormData) {
     .join("\n");
 
   /* ── Short Ad Copy ── */
-  const adCopy = `${pick(v.hooks)}. ${name}${price} — ${features}. ${pick(v.urgency)}. ${cta}! 🚀`;
+  const adCopy = `${pick(v.hooks)}. ${name}${priceShort} — ${features}. ${pick(v.urgency)}. ${cta}! 🚀`;
 
   /* ── Premium ── */
   const premium = [
@@ -150,8 +156,8 @@ function generatePromos(d: PromoFormData) {
     `${pick(v.benefits)}.`,
     "",
     `▸ ${features}`,
-    price ? `▸ Investment:${price}` : "▸ Inquire for exclusive pricing",
-    `▸ Curated for ${audience.toLowerCase()}`,
+    price ? `▸ Yours for ${price}` : "▸ Reach out for pricing",
+    audienceLine ? `▸ ${audienceLine}` : "",
     "",
     `${pick(v.urgency)}.`,
     "",
